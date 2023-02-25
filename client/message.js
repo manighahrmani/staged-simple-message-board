@@ -20,14 +20,6 @@ async function loadMessage() {
   showMessage(message);
 }
 
-/* add a message if enter pressed,
-   update button to make it "update" when the message is edited */
-function checkKeys(e) {
-  if (e.key === 'Enter') {
-    sendMessage();
-  }
-}
-
 /** Use fetch to put a JSON message to the server */
 async function sendMessage() {
   const id = getMessageId();
