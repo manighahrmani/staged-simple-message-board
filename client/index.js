@@ -18,19 +18,6 @@ function showMessages(messages, where) {
     li.append(' (', edit, ')');
 
     where.append(li);
-
-    li.addEventListener('mouseenter', showDetail);
-  }
-}
-
-async function showDetail(e) {
-  const response = await fetch('messages/' + e.target.dataset.id);
-  if (response.ok) {
-    const detail = await response.json();
-    const p = document.createElement('p');
-    p.textContent = `Message received on server at ${detail.time}`;
-    removeContentFrom(el.detail);
-    el.detail.append(p);
   }
 }
 
@@ -46,17 +33,9 @@ async function loadMessages() {
   showMessages(messages, el.messagelist);
 }
 
-/* add a message if enter pressed */
-function checkKeys(e) {
-  if (e.key === 'Enter') {
-    sendMessage();
-  }
-}
-
 /** Use fetch to post a JSON message to the server */
 async function sendMessage() {
   const payload = { msg: el.message.value };
-  console.log('Payload', payload);
 
   const response = await fetch('messages', {
     method: 'POST',
