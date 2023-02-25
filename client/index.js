@@ -100,6 +100,4 @@ function pageLoaded() {
   loadMessages();
 }
 
-// deprecated in favour of using defer in the script tag
-// window.addEventListener('load', pageLoaded);
 pageLoaded();

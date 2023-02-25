@@ -25,6 +25,8 @@ export function addMessage(msg) {
     time: Date(),
     msg,
   };
+  // messages = [newMessage, ...messages]; // add new message to front of array
+  // messages = messages.slice(0, 9); // keep only the first 10 messages
   messages = [newMessage, ...messages.slice(0, 9)];
   return messages;
 }
