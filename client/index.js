@@ -6,18 +6,18 @@ function removeContentFrom(what) {
 }
 
 /* Add an array of messages to the page */
-function showMessages(messages, where) {
+function showMessages(messages) {
   for (const message of messages) {
     const li = document.createElement('li');
     li.textContent = message.msg;
-    li.dataset.id = message.id;
 
     const edit = document.createElement('a');
     edit.textContent = 'edit me';
+    // takes the user to the edit page for the message (message.html)
     edit.href = `/message#${message.id}`;
     li.append(' (', edit, ')');
 
-    where.append(li);
+    el.messagelist.append(li);
   }
 }
 
@@ -30,7 +30,7 @@ async function loadMessages() {
     messages = [{ msg: 'failed to load messages :-(' }];
   }
   removeContentFrom(el.messagelist);
-  showMessages(messages, el.messagelist);
+  showMessages(messages);
 }
 
 /** Use fetch to post a JSON message to the server */
@@ -47,7 +47,7 @@ async function sendMessage() {
     el.message.value = '';
     const updatedMessages = await response.json();
     removeContentFrom(el.messagelist);
-    showMessages(updatedMessages, el.messagelist);
+    showMessages(updatedMessages);
   } else {
     console.log('failed to send message', response);
   }
@@ -61,20 +61,11 @@ function prepareHandles() {
   el.messagelist = document.querySelector('#messagelist');
   el.message = document.querySelector('#message');
   el.send = document.querySelector('#send');
-  el.detail = document.querySelector('#detail');
-}
-
-/**
- * Connect listeners for button clicks,
- * keyboard input, etc.
- */
-function addEventListeners() {
-  el.send.addEventListener('click', sendMessage);
 }
 
 function pageLoaded() {
   prepareHandles();
-  addEventListeners();
+  el.send.addEventListener('click', sendMessage);
   loadMessages();
 }
 
