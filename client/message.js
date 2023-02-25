@@ -56,7 +56,6 @@ function prepareHandles() {
  */
 function addEventListeners() {
   el.send.addEventListener('click', sendMessage);
-  el.message.addEventListener('keyup', checkKeys);
 }
 
 function pageLoaded() {
