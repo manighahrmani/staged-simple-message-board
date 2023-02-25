@@ -5,7 +5,7 @@
   "main": "svr.js",
   "type": "module",
   "scripts": {
-    "start": "node svr",
+    "start": "cd server && node svr --watch",
     "lint": "eslint stages",
     "test": "npm run lint"
   },

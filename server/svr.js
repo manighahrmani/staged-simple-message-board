@@ -6,7 +6,7 @@ import express from 'express';
 
 const app = express();
 
-app.use(express.static('client', { extensions: ['html'] }));
+app.use(express.static('../client', { extensions: ['html'] }));
 
 function getMessages(req, res) {
   res.json(mb.listMessages());
