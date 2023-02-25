@@ -21,6 +21,7 @@ function showMessages(messages) {
   }
 }
 
+/** Use fetch to get a JSON message from the server */
 async function loadMessages() {
   const response = await fetch('messages');
   let messages;
