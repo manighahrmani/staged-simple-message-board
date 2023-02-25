@@ -1,15 +1,19 @@
 const el = {};
 
+/** Add a message to the page (in #message input element) */
 function showMessage(message) {
   el.message.value = message.msg;
 }
 
+/** Get the message id from the URL */
 function getMessageId() {
   return window.location.hash.substring(1);
 }
 
+/** Use fetch to get a JSON message from the server */
 async function loadMessage() {
   const id = getMessageId();
+  // fetch the message from the server
   const response = await fetch(`messages/${id}`);
   let message;
   if (response.ok) {
@@ -24,7 +28,6 @@ async function loadMessage() {
 async function sendMessage() {
   const id = getMessageId();
   const payload = { id, msg: el.message.value };
-  console.log('Payload', payload);
 
   const response = await fetch(`messages/${id}`, {
     method: 'PUT',
@@ -35,9 +38,9 @@ async function sendMessage() {
   if (response.ok) {
     el.message.value = '';
     const updatedMessages = await response.json();
-    showMessage(updatedMessages, el.messagelist);
+    showMessage(updatedMessages);
   } else {
-    console.log('failed to send message', response);
+    showMessage({ msg: 'failed to send message :-(' });
   }
 }
 
@@ -50,20 +53,10 @@ function prepareHandles() {
   el.send = document.querySelector('#send');
 }
 
-/**
- * Connect listeners for button clicks,
- * keyboard input, etc.
- */
-function addEventListeners() {
-  el.send.addEventListener('click', sendMessage);
-}
-
 function pageLoaded() {
   prepareHandles();
-  addEventListeners();
+  el.send.addEventListener('click', sendMessage);
   loadMessage();
 }
 
-// deprecated in favour of using defer in the script tag
-// window.addEventListener('load', pageLoaded);
 pageLoaded();
